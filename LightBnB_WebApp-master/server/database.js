@@ -88,9 +88,6 @@ const getAllReservations = function(guest_id, limit = 10) {
     .catch((err) => {
       console.log(err.message);
     });
-
-
-  //return getAllProperties(null, 2);
 };
 exports.getAllReservations = getAllReservations;
 
@@ -103,8 +100,8 @@ exports.getAllReservations = getAllReservations;
  * @return {Promise<[{}]>}  A promise to the properties.
  */
 const getAllProperties = (options, limit = 10) => {
-  const queryParams = [];
-  
+  const queryParams = [];//array for parameterizatiom
+  //start query
   let queryString = `
   SELECT properties.*, avg(property_reviews.rating) as average_rating
   FROM properties
@@ -113,7 +110,7 @@ const getAllProperties = (options, limit = 10) => {
 
   if (options.city) {
     queryParams.push(`%${options.city}%`);
-    queryString += `WHERE city LIKE $${queryParams.length} `;
+    queryString += `WHERE city LIKE $${queryParams.length} `;//add query
   }
 
   if (options.owner_id && options.city) {
@@ -170,16 +167,6 @@ const getAllProperties = (options, limit = 10) => {
 
 };
 
-
-// const getAllProperties = function(options, limit = 10) {
-//   const queryParams = [];
-//   let queryString = `
-//     SELECT properties.*, avg(rating) as average_rating
-//     FROM properties
-
-
-
-
 exports.getAllProperties = getAllProperties;
 
 
@@ -209,9 +196,5 @@ const addProperty = function(property) {
     })
     .catch((err) => console.log(err.message));
 
-  // const propertyId = Object.keys(properties).length + 1;
-  // property.id = propertyId;
-  // properties[propertyId] = property;
-  // return Promise.resolve(property);
 };
 exports.addProperty = addProperty;
